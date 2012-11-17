@@ -83,9 +83,13 @@ const MessageMenu = new Lang.Class({
 			this.menu.addMenuItem(newLauncher);
 
 			this.con =  new PopupMenu.PopupMenuItem("        "+this.contacts_string);
+			this.comp = new PopupMenu.PopupMenuItem("        "+this.new_msg_string+"...");
 			
 			this.con.connect('activate', Lang.bind(this, this._evolutionContacts));
 			this.menu.addMenuItem(this.con);
+			
+			this.comp.connect('activate', Lang.bind(this, this._evolutionCompose));
+			this.menu.addMenuItem(this.comp);
 		}
 
 		// Special Thunderbird Menu Entry
@@ -214,6 +218,10 @@ const MessageMenu = new Lang.Class({
 
 	_evolutionContacts: function() {
 		Main.Util.trySpawnCommandLine('evolution -c contacts');
+	},
+	
+	_evolutionCompose: function() {
+		Main.Util.trySpawnCommandLine('evolution mailto:');
 	},
 
     destroy: function() {
